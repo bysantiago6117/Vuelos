@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class FlightController {
@@ -53,15 +54,22 @@ public class FlightController {
     }
 
 
-    @GetMapping("/catalog/{code}")
-    public ResponseEntity<?> ListarVuelosenfecha(@PathVariable String code){
-        return new ResponseEntity<>(iFlight.ListarPordepartureAirportCode(code),HttpStatus.OK);
-    }
+    //@GetMapping("/catalog/{code}")
+   // public ResponseEntity<?> ListarVuelosenfecha(@PathVariable String code){
+     //   return new ResponseEntity<>();
+    // }
 
     @GetMapping("/vuelos/{id}")
     public ResponseEntity<?> vuelo(@PathVariable int id){
         return new ResponseEntity<>(iFlight.vueloxid(id).get(),HttpStatus.OK);
 
+    }
+
+
+    @GetMapping("/catalog/")
+    public ResponseEntity<?> ListarxParam(@RequestParam String departureAirportCode, @RequestParam String arrivalAirportCode, @RequestParam String departureDate){
+        //return "el departureAirportCode es: " + departureAirportCode + "el arrivalAirportCode es: " + arrivalAirportCode + "el departureDate es: " + departureDate;
+        return new ResponseEntity<>(iFlight.listarporparams(departureAirportCode,arrivalAirportCode,departureDate),HttpStatus.OK);
     }
 
 

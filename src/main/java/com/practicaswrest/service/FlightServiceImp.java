@@ -18,45 +18,23 @@ public class FlightServiceImp implements IFlight{
     @Autowired
     private FlightReposity flightReposity;
 
-    @Override
-    public List<Flight> ListarPordepartureAirportCode(String departureAirportCode) {
-        List<Flight> vuelos = flightReposity.findAll();
-        List<Flight> vuelosXdepart = new ArrayList<>();
-
-        for (Flight vuelo : vuelos) {
-            if (vuelo.getDepartureAirportCode().equals(departureAirportCode)) {
-                vuelosXdepart.add(vuelo);
-            }
-        }
-        return vuelosXdepart;
-    }
 
     @Override
-    public List<Flight> listaPorarrivalAirportCode(String airportcode) {
+    public List<Flight> listarporparams(String departureAirportCode, String arrivalAirportCode, String departureDate) {
+         List<Flight> vuelos = flightReposity.findAll();
+         List<Flight> vuelosxparam = new ArrayList<>();
 
-        List<Flight> vuelos = flightReposity.findAll();
-        List<Flight> vuelosXairport = new ArrayList<>();
+         for(Flight flight: vuelos){
+             if(flight.getArrivalAirportCode().equals(arrivalAirportCode)
+                     &&
+                     flight.getDepartureAirportCode().equals(departureAirportCode)
+                     &&
+                     flight.getDepartureDate().equals(departureDate)){
+                        vuelosxparam.add(flight);
+             }
+         }
 
-        for (Flight vuelo : vuelos) {
-            if (vuelo.getArrivalAirportCode().equals(airportcode)) {
-                vuelosXairport.add(vuelo);
-            }
-        }
-        return vuelosXairport;
-    }
-
-    @Override
-    public List<Flight> listapordepartureDate(String departureDate) {
-        List<Flight> vuelos = flightReposity.findAll();
-        List<Flight> vuelosXdeparDate = new ArrayList<>();
-
-
-        for (Flight vuelo : vuelos) {
-            if (vuelo.getDepartureDate().equals(departureDate)) {
-                vuelosXdeparDate.add(vuelo);
-            }
-        }
-        return vuelosXdeparDate;
+         return vuelosxparam;
     }
 
     @Override
@@ -79,16 +57,17 @@ public class FlightServiceImp implements IFlight{
 
     @Override
     public List<Flight> listarXairportCode(String airportCode, String fecha) {
-        List<Flight> vuelosxfecha = listapordepartureDate(fecha);
-        List<Flight> vuelosXairportcode = new ArrayList<>();
+        List<Flight> vuelos = flightReposity.findAll();
+        List<Flight> vuelosxfecha = new ArrayList<>();
 
-        for (Flight flight : vuelosxfecha) {
-            if (flight.getDepartureAirportCode().equals(airportCode)) {
-                vuelosXairportcode.add(flight);
+        for(Flight flight: vuelos){
+            if(flight.getArrivalAirportCode().equals(airportCode) && flight.getDepartureDate().equals(fecha)){
+                vuelosxfecha.add(flight);
             }
         }
 
-         return vuelosXairportcode;
+        return vuelosxfecha;
+
     }
 
     @Override

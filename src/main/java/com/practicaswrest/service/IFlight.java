@@ -8,11 +8,9 @@ import java.util.Optional;
 
 public interface IFlight {
 
-    List<Flight> ListarPordepartureAirportCode(String departureAirportCode);
 
-    List<Flight> listaPorarrivalAirportCode(String airportcode);
 
-    List<Flight> listapordepartureDate(String departureDate);
+    List<Flight> listarporparams(String departureAirportCode, String arrivalAirportCode, String departureDate);
 
 
      Flight crear(Flight flight);

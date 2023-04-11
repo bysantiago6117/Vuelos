@@ -42,7 +42,7 @@ public class BookingController {
     }
 
     @PostMapping("/booking/flight/{idflight}/user/{userid}")
-    public ResponseEntity<?> Crear(@RequestBody Booking booking, @PathVariable int userid, @PathVariable int idflight){
+    public ResponseEntity<?> Crear(@RequestBody Booking booking,@PathVariable int idflight,  @PathVariable int userid){
 
         Booking result = iBooking.crear(booking,userid,idflight);
         return new ResponseEntity<>(result, HttpStatus.OK);

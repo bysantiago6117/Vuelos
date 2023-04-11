@@ -4,6 +4,7 @@ import com.practicaswrest.Modelo.Flight;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface IFlight {
 
@@ -11,7 +12,7 @@ public interface IFlight {
 
     List<Flight> listaPorarrivalAirportCode(String airportcode);
 
-    List<Flight> listapordepartureDate(Date departureDate);
+    List<Flight> listapordepartureDate(String departureDate);
 
 
      Flight crear(Flight flight);
@@ -21,9 +22,11 @@ public interface IFlight {
      void eliminar(int id);
 
 
-     List<Flight> listarXairportCode(String airportCode, Date fecha);
+     List<Flight> listarXairportCode(String airportCode, String fecha);
 
      Boolean existeVueloxid(int id);
+
+     Optional<Flight> vueloxid(int id);
 
 
 

@@ -1,13 +1,14 @@
 package com.practicaswrest.service;
 
 import com.practicaswrest.Modelo.Booking;
-import com.practicaswrest.Modelo.BookingStatus;
+import Enumeraciones.BookingStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IBooking {
 
-    Booking findbyid(int id);
+    Optional<Booking> findbyid(int id);
 
     List<Booking> findbystatus(BookingStatus status);
 
@@ -17,7 +18,7 @@ public interface IBooking {
 
     List<Booking> listarxStatusYcustomer(BookingStatus status, int id);
 
-    Booking crear(Booking booking, int id_customer, int id_vuelo);
+    Booking crear(Booking booking, int userid, int id_vuelo);
 
     boolean existeReserva(int id);
 

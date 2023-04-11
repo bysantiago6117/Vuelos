@@ -1,7 +1,8 @@
 package Dto;
 
-import com.practicaswrest.Modelo.BookingStatus;
+import Enumeraciones.BookingStatus;
 import com.practicaswrest.Modelo.Flight;
+import com.practicaswrest.Modelo.User;
 
 public class BookingDTO {
 
@@ -21,6 +22,10 @@ public class BookingDTO {
 
     private String bookingReference;
 
+    private Flight flight;
+
+    private User user;
+
     public Flight getFlight() {
         return flight;
     }
@@ -29,7 +34,13 @@ public class BookingDTO {
         this.flight = flight;
     }
 
-    private Flight flight;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;

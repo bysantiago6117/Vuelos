@@ -5,9 +5,12 @@ import com.practicaswrest.Modelo.Flight;
 import com.practicaswrest.service.IFlight;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 public class FlightController {
@@ -19,10 +22,6 @@ public class FlightController {
     @PostMapping("/catalog/")
     public ResponseEntity<?> crear(@RequestBody Flight flight){
         Flight result = iFlight.crear(flight);
-        if(result == null ) {
-            return new ResponseEntity<>("Ya existe un vuelo registrado con este usuario", HttpStatus.BAD_REQUEST);
-        }
-
         FlightDto flightDto = new FlightDto();
         BeanUtils.copyProperties(result,flightDto);
         return new ResponseEntity<>(flightDto, HttpStatus.OK);
@@ -38,9 +37,7 @@ public class FlightController {
         }
 
         Flight result = iFlight.actualizar(id,flight);
-        FlightDto flightDto = new FlightDto();
-        BeanUtils.copyProperties(result,flightDto);
-        return new ResponseEntity<>(flightDto, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
@@ -53,6 +50,18 @@ public class FlightController {
 
         iFlight.eliminar(id);
         return new ResponseEntity<>("el vuelo se ha eliminado sastifactoriamente",HttpStatus.OK);
+    }
+
+
+    @GetMapping("/catalog/{code}")
+    public ResponseEntity<?> ListarVuelosenfecha(@PathVariable String code){
+        return new ResponseEntity<>(iFlight.ListarPordepartureAirportCode(code),HttpStatus.OK);
+    }
+
+    @GetMapping("/vuelos/{id}")
+    public ResponseEntity<?> vuelo(@PathVariable int id){
+        return new ResponseEntity<>(iFlight.vueloxid(id).get(),HttpStatus.OK);
+
     }
 
 

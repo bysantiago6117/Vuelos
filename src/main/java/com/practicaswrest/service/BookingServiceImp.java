@@ -1,7 +1,9 @@
 package com.practicaswrest.service;
 
 import com.practicaswrest.Modelo.Booking;
-import com.practicaswrest.Modelo.BookingStatus;
+import Enumeraciones.BookingStatus;
+import com.practicaswrest.Modelo.Flight;
+import com.practicaswrest.Modelo.User;
 import com.practicaswrest.repo.BookingReposity;
 import com.practicaswrest.repo.FlightReposity;
 import com.practicaswrest.repo.UserReposity;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingServiceImp implements IBooking{
@@ -26,8 +29,8 @@ public class BookingServiceImp implements IBooking{
 
 
     @Override
-    public Booking findbyid(int id) {
-        return br.getById(id);
+    public Optional<Booking> findbyid(int id) {
+             return br.findById(id);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class BookingServiceImp implements IBooking{
         List<Booking> reservaxCliente = new ArrayList<>();
 
         for (Booking reserva : reservas) {
-            if (id == reserva.getUser().getId()) {
+            if (id == reserva.getUsuarios().getId()) {
                 reservaxCliente.add(reserva);
             }
         }
@@ -70,7 +73,7 @@ public class BookingServiceImp implements IBooking{
         List<Booking> result = new ArrayList<>();
 
         for (Booking listastatus : Listastatus) {
-            if (listastatus.getUser().getId() == id) {
+            if (listastatus.getUsuarios().getId() == id) {
                 result.add(listastatus);
             }
         }
@@ -78,13 +81,19 @@ public class BookingServiceImp implements IBooking{
     }
 
     @Override
-    public Booking crear(Booking booking, int id_customer, int id_vuelo) {
+    public Booking crear(Booking booking, int userid, int id_vuelo) {
 
-        if(comprobarUsuario(id_customer) && comprobarvuel(id_vuelo)){
-            return br.save(booking);
+
+        List<User> aux = ur.findAll();
+        for (User user : aux) {
+            if (user.getId() == userid) {
+                booking.setUsuarios(user);
+            }
         }
+        Optional<Flight> opt2 = fr.findById(id_vuelo);
+        booking.setFlight(opt2.get());
+        return br.save(booking);
 
-        return null;
 
     }
 

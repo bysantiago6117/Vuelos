@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<?> buscarusuarioporid(@PathVariable int id){
 
-        User result = iUser.findbyid(id);
+        User result = iUser.buscarusuarioxid(id).get();
 
         if(result == null || !iUser.Existeelusuarioporid(id)){
             return new ResponseEntity<>("mensaje: No se encuentra el usuario registrado",HttpStatus.BAD_REQUEST);
@@ -43,9 +43,7 @@ public class UserController {
     @PostMapping("/users/")
     public ResponseEntity<?> Crear(@RequestBody User user){
            User result = iUser.crearUsuario(user);
-           if(result == null ) {
-               return new ResponseEntity<>("Ya existe un usuario registrado con este id",HttpStatus.BAD_REQUEST);
-           }
+
 
            UserDto userDto = new UserDto();
            BeanUtils.copyProperties(result,userDto);

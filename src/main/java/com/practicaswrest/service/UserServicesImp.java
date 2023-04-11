@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServicesImp implements IUser{
@@ -19,27 +20,8 @@ public class UserServicesImp implements IUser{
 
     @Override
     public User crearUsuario(User user) {
-
-
-        List<User> registrados = userReposity.findAll();
-        boolean comprobar = true;
-
-        for (User registrado : registrados) {
-            if (user.getId() == registrado.getId()) {
-                comprobar = false;
-                break;
-            }
-        }
-
-        if(comprobar){
-            user.setPassword(encryptServiceImp.encryptpassword(user.getPassword()));
-            return userReposity.save(user);
-        }
-
-        return null;
-
-
-
+        user.setPassword(encryptServiceImp.encryptpassword(user.getPassword()));
+        return userReposity.save(user);
     }
 
 
@@ -65,11 +47,12 @@ public class UserServicesImp implements IUser{
         return userReposity.existsById(id);
     }
 
-
     @Override
-    public User findbyid(int id) {
-        return userReposity.getById(id);
+    public Optional<User> buscarusuarioxid(int id) {
+
+        return userReposity.findById(id);
     }
+
 
     @Override
     public List<User> listarUsuarios() {

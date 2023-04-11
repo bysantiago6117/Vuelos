@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class FlightDto {
 
-    private int idf;
+    private int id;
 
-    private Date departureDate;
+    private String departureDate;
 
     private String departureAirportCode;
 
@@ -20,7 +20,7 @@ public class FlightDto {
 
     private String departureLocale;
 
-    private Date arrivalDate;
+    private String arrivalDate;
 
     private String arrivalAirportCode;
 
@@ -40,20 +40,28 @@ public class FlightDto {
 
     private Set<Booking> bookingSet;
 
-    public int getIdf() {
-        return idf;
+    public int getId() {
+        return id;
     }
 
-    public void setIdf(int idf) {
-        this.idf = idf;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Date getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(String arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 
     public String getDepartureAirportCode() {
@@ -88,13 +96,7 @@ public class FlightDto {
         this.departureLocale = departureLocale;
     }
 
-    public Date getArrivalDate() {
-        return arrivalDate;
-    }
 
-    public void setArrivalDate(Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
 
     public String getArrivalAirportCode() {
         return arrivalAirportCode;

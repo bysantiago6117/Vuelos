@@ -1,4 +1,4 @@
-package com.practicaswrest.Modelo;
+package Enumeraciones;
 
 public enum BookingStatus {
     UNCONFIRMED,

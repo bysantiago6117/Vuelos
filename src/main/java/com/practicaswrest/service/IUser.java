@@ -3,6 +3,7 @@ package com.practicaswrest.service;
 import com.practicaswrest.Modelo.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUser {
 
@@ -15,8 +16,8 @@ public interface IUser {
 
       boolean Existeelusuarioporid(int id);
 
-     User findbyid(int id);
 
+      Optional<User> buscarusuarioxid(int id);
      List<User> listarUsuarios();
 
 

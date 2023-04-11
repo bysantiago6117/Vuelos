@@ -2,12 +2,14 @@ package com.practicaswrest.Modelo;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "flights")
+@Table(name = "flight")
 public class Flight {
 
     @Id
@@ -15,7 +17,7 @@ public class Flight {
     private int idf;
 
     @Column
-    private Date departureDate;
+    private String departureDate;
 
     @Column
     private String departureAirportCode;
@@ -30,7 +32,7 @@ public class Flight {
     private String departureLocale;
 
     @Column
-    private Date arrivalDate;
+    private String arrivalDate;
 
     @Column
     private String arrivalAirportCode;
@@ -56,14 +58,13 @@ public class Flight {
     @Column
     private int seatCapacity;
 
-    @OneToMany(mappedBy = "flights")
+    @OneToMany(mappedBy = "flight")
     private Set<Booking> bookingSet;
 
     public Flight() {
     }
 
-    public Flight(int idf, Date departureDate, String departureAirportCode, String departureAirportName, String departureCity, String departureLocale, Date arrivalDate, String arrivalAirportCode, String arrivalAirportName, String arrivalCity, String arrivalLocale, int ticketPrice, String ticketCurrency, int flightNumber, int seatCapacity) {
-        this.idf = idf;
+    public Flight(String departureDate, String departureAirportCode, String departureAirportName, String departureCity, String departureLocale, String arrivalDate, String arrivalAirportCode, String arrivalAirportName, String arrivalCity, String arrivalLocale, int ticketPrice, String ticketCurrency, int flightNumber, int seatCapacity, Set<Booking> bookingSet) {
         this.departureDate = departureDate;
         this.departureAirportCode = departureAirportCode;
         this.departureAirportName = departureAirportName;
@@ -78,26 +79,8 @@ public class Flight {
         this.ticketCurrency = ticketCurrency;
         this.flightNumber = flightNumber;
         this.seatCapacity = seatCapacity;
+        this.bookingSet = bookingSet;
     }
-
-
-    public Flight(Date departureDate, String departureAirportCode, String departureAirportName, String departureCity, String departureLocale, Date arrivalDate, String arrivalAirportCode, String arrivalAirportName, String arrivalCity, String arrivalLocale, int ticketPrice, String ticketCurrency, int flightNumber, int seatCapacity) {
-        this.departureDate = departureDate;
-        this.departureAirportCode = departureAirportCode;
-        this.departureAirportName = departureAirportName;
-        this.departureCity = departureCity;
-        this.departureLocale = departureLocale;
-        this.arrivalDate = arrivalDate;
-        this.arrivalAirportCode = arrivalAirportCode;
-        this.arrivalAirportName = arrivalAirportName;
-        this.arrivalCity = arrivalCity;
-        this.arrivalLocale = arrivalLocale;
-        this.ticketPrice = ticketPrice;
-        this.ticketCurrency = ticketCurrency;
-        this.flightNumber = flightNumber;
-        this.seatCapacity = seatCapacity;
-    }
-
 
     public int getId() {
         return idf;
@@ -107,13 +90,7 @@ public class Flight {
         this.idf = idf;
     }
 
-    public Date getDepartureDate() {
-        return departureDate;
-    }
 
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
-    }
 
     public String getDepartureAirportCode() {
         return departureAirportCode;
@@ -147,13 +124,6 @@ public class Flight {
         this.departureLocale = departureLocale;
     }
 
-    public Date getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
 
     public String getArrivalAirportCode() {
         return arrivalAirportCode;
@@ -217,5 +187,29 @@ public class Flight {
 
     public void setSeatCapacity(int seatCapacity) {
         this.seatCapacity = seatCapacity;
+    }
+
+    public String getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(String arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public Set<Booking> getBookingSet() {
+        return bookingSet;
+    }
+
+    public void setBookingSet(Set<Booking> bookingSet) {
+        this.bookingSet = bookingSet;
     }
 }

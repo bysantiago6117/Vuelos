@@ -2,12 +2,16 @@ package com.practicaswrest.service;
 
 import com.practicaswrest.Modelo.Flight;
 import com.practicaswrest.repo.FlightReposity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class FlightServiceImp implements IFlight{
 
 
@@ -42,9 +46,10 @@ public class FlightServiceImp implements IFlight{
     }
 
     @Override
-    public List<Flight> listapordepartureDate(Date departureDate) {
+    public List<Flight> listapordepartureDate(String departureDate) {
         List<Flight> vuelos = flightReposity.findAll();
         List<Flight> vuelosXdeparDate = new ArrayList<>();
+
 
         for (Flight vuelo : vuelos) {
             if (vuelo.getDepartureDate().equals(departureDate)) {
@@ -56,28 +61,15 @@ public class FlightServiceImp implements IFlight{
 
     @Override
     public Flight crear(Flight flight) {
-
-        List<Flight> registrados = flightReposity.findAll();
-        boolean comprobar = true;
-
-        for (Flight registrado : registrados) {
-            if (flight.getId() == registrado.getId()) {
-                comprobar = false;
-                break;
-            }
-        }
-
-        if(comprobar){
-            return flightReposity.save(flight);
-        }
-
-        return null;
+        return flightReposity.save(flight);
     }
 
     @Override
     public Flight actualizar(int id, Flight flight) {
-        flight.setId(id);
-        return flightReposity.save(flight);
+        Optional<Flight> optionalFlight = flightReposity.findById(id);
+        BeanUtils.copyProperties(flight,optionalFlight.get());
+
+        return flightReposity.save(optionalFlight.get());
     }
 
     @Override
@@ -86,7 +78,7 @@ public class FlightServiceImp implements IFlight{
     }
 
     @Override
-    public List<Flight> listarXairportCode(String airportCode, Date fecha) {
+    public List<Flight> listarXairportCode(String airportCode, String fecha) {
         List<Flight> vuelosxfecha = listapordepartureDate(fecha);
         List<Flight> vuelosXairportcode = new ArrayList<>();
 
@@ -102,5 +94,12 @@ public class FlightServiceImp implements IFlight{
     @Override
     public Boolean existeVueloxid(int id) {
         return flightReposity.existsById(id);
+    }
+
+    @Override
+    public Optional<Flight> vueloxid(int id) {
+
+        Optional<Flight> opt = flightReposity.findById(id);
+        return opt;
     }
 }

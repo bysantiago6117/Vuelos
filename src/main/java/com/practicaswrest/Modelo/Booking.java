@@ -1,5 +1,7 @@
 package com.practicaswrest.Modelo;
 
+import Enumeraciones.BookingStatus;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,32 +29,32 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "usuarioID", referencedColumnName = "idUsuario")
-    private User users;
+    private User usuarios;
 
     @ManyToOne
     @JoinColumn(name = "outboundFlight", referencedColumnName = "idf")
-    private Flight flights;
+    private Flight flight;
 
 
-    public Booking(int id, BookingStatus status, String paymentToken, boolean checkedIn, String createdAt, String bookingReference, User users, Flight flights) {
-        this.id = id;
-        this.status = status;
-        this.paymentToken = paymentToken;
-        this.checkedIn = checkedIn;
-        this.createdAt = createdAt;
-        this.bookingReference = bookingReference;
-        this.users = users;
-        this.flights = flights;
+    public Booking() {
     }
 
-    public Booking(BookingStatus status, String paymentToken, boolean checkedIn, String createdAt, String bookingReference, User users, Flight flights) {
+    public Booking(BookingStatus status, String paymentToken, boolean checkedIn, String createdAt, String bookingReference, User usuarios, Flight flight) {
         this.status = status;
         this.paymentToken = paymentToken;
         this.checkedIn = checkedIn;
         this.createdAt = createdAt;
         this.bookingReference = bookingReference;
-        this.users = users;
-        this.flights = flights;
+        this.usuarios = usuarios;
+        this.flight = flight;
+    }
+
+    public Booking(BookingStatus status, String paymentToken, boolean checkedIn, String createdAt, String bookingReference) {
+        this.status = status;
+        this.paymentToken = paymentToken;
+        this.checkedIn = checkedIn;
+        this.createdAt = createdAt;
+        this.bookingReference = bookingReference;
     }
 
     public int getId() {
@@ -103,19 +105,19 @@ public class Booking {
         this.bookingReference = bookingReference;
     }
 
-    public User getUser() {
-        return users;
+    public User getUsuarios() {
+        return usuarios;
     }
 
-    public void setUser(User user) {
-        this.users = users;
+    public void setUsuarios(User usuarios) {
+        this.usuarios = usuarios;
     }
 
     public Flight getFlight() {
-        return flights;
+        return flight;
     }
 
     public void setFlight(Flight flight) {
-        this.flights = flight;
+        this.flight = flight;
     }
 }

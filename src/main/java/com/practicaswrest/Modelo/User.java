@@ -24,16 +24,10 @@ public class User {
     private String password;
 
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "usuarios")
     private Set<Booking> bookingSet;
-    public User() {
-    }
 
-    public User(int idUsuario, String fullname, String correo, String password) {
-        this.idUsuario = idUsuario;
-        this.fullname = fullname;
-        this.correo = correo;
-        this.password = password;
+    public User() {
     }
 
     public User(String fullname, String correo, String password) {
